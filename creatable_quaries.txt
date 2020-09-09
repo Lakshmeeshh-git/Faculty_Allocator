@@ -1,0 +1,22 @@
+CREATE TABLE faculty (
+    fid int PRIMARY KEY,
+    name varchar(255) NOT NULL,
+    department varchar(255) NOT NULL,
+    phone_number varchar(30) NOT NULL,
+    designation varchar(30) NOT NULL,
+    CONSTRAINT chk_designation_value CHECK (designation='Teaching' OR designation='Non-Teaching'),
+    duties int DEFAULT '0'
+);
+
+CREATE TABLE faculty_duty (
+    fid int,
+    day_of_exam DATE,
+    session varchar(10),
+    reliever varchar(10) DEFAULT 'False',
+    CONSTRAINT chk_session_value CHECK (session='AN' OR session='FN'),
+    CONSTRAINT chk_reliever_value CHECK (reliever='True' OR reliever='False'),
+    FOREIGN KEY(fid) REFERENCES faculty(fid) ON DELETE CASCADE
+);
+
+CREATE TABLE user(username VARCHAR(40), password VARCHAR(20));
+INSERT INTO user VALUES('admin', 'admin');
